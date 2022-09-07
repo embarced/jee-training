@@ -8,6 +8,12 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="hello-servlet?name=Falk">Hello Servlet</a>
+<br/>
+<a href="registration?eventId=2022-09-22">Registrierungsformular</a>
+<br/>
+${param.success ? "Registrierung erfolgreich" : "" }
+<br/>
+<a href="admin">Admin-Seite</a>
 </body>
 </html>

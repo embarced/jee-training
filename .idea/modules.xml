@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/documentation/documentation.iml" filepath="$PROJECT_DIR$/documentation/documentation.iml" />
       <module fileurl="file://$PROJECT_DIR$/registration/registration.iml" filepath="$PROJECT_DIR$/registration/registration.iml" />
       <module fileurl="file://$PROJECT_DIR$/workspace.iml" filepath="$PROJECT_DIR$/workspace.iml" />
     </modules>
