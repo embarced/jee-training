@@ -1,0 +1,10 @@
+:toc:
+
+= Begleitendes Material zum Training *Java/Jakarta EE Workshop*
+:sectnums:
+
+include::01-setup/index.adoc[leveloffset=+1]
+
+include::02-web/index.adoc[leveloffset=+1]
+
+include::cheatsheet.adoc[leveloffset=+1]

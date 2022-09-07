@@ -1,0 +1,59 @@
+= Cheatsheet
+:sectnums:
+
+== IntelliJ Shortcuts
+
+=== Nützliche Plugins
+
+* Presentation Assistant: zeigt den Zuschauern die verwendeten Shortcuts
+* Key Promoter X: zeigt dem Nutzer den zur Maussteuerung alternativen Shortcut
+
+=== Allgemeine Shortcuts
+
+.Allgemeine Shortcuts
+[cols="2a,2a,5a"]
+|===
+|Shortcut Mac | Shortcut Win/Linux |Beschreibung
+
+|⌥ + <ENTER>
+|Alt + <Enter>
+| Kontextabhängiger Quickfix
+|===
+
+=== Formatierung
+
+.Shortcuts zur Formatierung
+[cols="2a,2a,5a"]
+|===
+|Shortcut Mac | Shortcut Win/Linux |Beschreibung
+
+|⌃ + ⌥ + O
+|Ctrl + Alt + O
+| Organize Import
+
+|⌥ + ⌘ + L
+|Ctrl + Alt + L
+| Reformat Code
+|===
+
+=== Selektion
+.Shortcuts zum Selektieren
+[cols="2a, 2a, 5a"]
+|===
+|Shortcut Mac | Shortcut Windows |Beschreibung
+
+| ⌥ + ↑/↓
+| Ctrl + W
+Ctrl + Shift + W
+| Erweitert und verringert Selektion (ganzes Wort, Methodenaufruf, Zeile, Block, ...)
+
+|⌥, ⌥ + ↑/↓
+|Ctrl + W
+Ctrl + Shift + W
+|Setzt einen Multicursor in mehrere Zeilen an der gleichen Position, man kann mit `^ + A/E` an den Anfang/ans Ende springen
+
+|⌃ + G
+
+⇧ + ⌃ + G
+|Selektiert das nächste Vorkommen der aktuellen Auswahl bzw. nimmt die Selektion wieder zurück
+|===

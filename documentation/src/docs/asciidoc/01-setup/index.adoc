@@ -1,0 +1,43 @@
+:toc:
+
+= Webanwendungen
+
+:sectnums:
+
+== WildFly installieren
+
+* https://www.wildfly.org/downloads/[Download-Seite]
+* entpacken nach <project_dir>/wildfly-preview-26.1.1.Final
+* starten über <wildfly_dir>/bin/standalone.sh
+
+== Einrichtung in IntelliJ
+
+* Preferences -> Build, Execution, Deployments -> Application Server
+* Add Application Server
+* Reiter Services -> Add "Run Configuration Type"
+* Run -> Edit Configurations ... -> On Update Action: Redeploy
+** ⌘ + F10 führt zu Redeploy, ohne dass der Server neugestartet werden muss
+
+== Einrichtung Datenbank
+
+== Einrichtung Mail-Server
+
+Wir nutzen hier ein https://www.jambit.com/aktuelles/toilet-papers/fake-smtp-server-zum-testen-von-mailversand/[Fake-Mail-Server].
+
+.Fake-Mail-Server installieren
+```sh
+npm install -g fake-smtp-server
+fake-smtp-server
+```
+
+* SMTP-Server: localhost:1025
+* Admin-Oberfläche zum Lesen der gesammelten Mails: http://localhost:1080/api/emails
+
+* in System Properties den Port (standardmäßig 25) ändern: http://localhost:9990/console/index.html#system-properties
+
+```
+jboss.mail.server.port=1025
+```
+
+* Authentifizierung wird hier nicht benötigt
+
