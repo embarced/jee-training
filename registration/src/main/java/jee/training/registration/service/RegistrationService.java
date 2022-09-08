@@ -52,17 +52,18 @@ public class RegistrationService implements Serializable {
         events.get(eventId).add(attendee);
         Attendee saved = attendeeDao.save(attendee);
         System.out.println("Aus DB geladen: " + attendeeDao.get(saved.getId()));
-        simulateUpdates(saved.getId());
+        simulateUpdatesAndDelete(saved.getId());
         System.out.println("Aus DB geladen: " + attendeeDao.get(saved.getId()));
         logger.log(Level.INFO, "added attendee " + attendee + " with id #" + saved.getId());
     }
 
     // @Transactional(Transactional.TxType.REQUIRED)
-    public void simulateUpdates(Long id) {
+    public void simulateUpdatesAndDelete(Long id) {
         Attendee attendee = attendeeDao.get(id);
         attendee.setName("embarc");
         attendee.setEmail("fs@embarc.de");
         Attendee merged = attendeeDao.update(attendee);
-        System.out.println("breakpoint");
+        Attendee deleted = attendeeDao.delete(id);
+        System.out.println("Datensatz  mit ID #" + id + " gelöscht? " + (em.find(Attendee.class, id) == null));
     }
 }

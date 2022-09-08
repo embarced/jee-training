@@ -24,4 +24,11 @@ public class AttendeeDao {
     public Attendee update(Attendee attendee) {
         return em.merge(attendee);
     }
+
+    @Transactional
+    public Attendee delete(Long id) {
+        Attendee toDelete = this.get(id);
+        em.remove(toDelete);
+        return toDelete;
+    }
 }
