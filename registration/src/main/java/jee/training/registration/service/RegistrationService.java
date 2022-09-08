@@ -46,6 +46,7 @@ public class RegistrationService implements Serializable {
         }
         events.get(eventId).add(attendee);
         Attendee saved = attendeeDao.save(attendee);
+        System.out.println("Aus DB geladen: " + attendeeDao.get(saved.getId()));
         logger.log(Level.INFO, "added attendee " + attendee + " with id #" + saved.getId());
     }
 }

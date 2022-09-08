@@ -15,4 +15,8 @@ public class AttendeeDao {
         em.persist(attendee);
         return attendee;
     }
+
+    public Attendee get(Long id) {
+        return em.find(Attendee.class, id);
+    }
 }
