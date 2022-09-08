@@ -4,7 +4,6 @@ import jakarta.inject.Inject;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import jee.training.registration.dao.RegistrationDao;
 import jee.training.registration.model.Attendee;
 import jee.training.registration.service.RegistrationSessionService;
 
