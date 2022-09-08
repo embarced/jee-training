@@ -46,6 +46,7 @@ public class RegistrationServlet extends HttpServlet {
         List<Attendee> attendees = (List<Attendee>) session.getAttribute(eventId);
         Attendee attendee = new Attendee(request.getParameter("name"), request.getParameter("email"));
         attendees.add(attendee);
+        registrationSessionService.addAttendee(eventId, attendee);
 
         response.sendRedirect(request.getContextPath() + "?success=true");
     }
