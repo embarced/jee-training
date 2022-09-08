@@ -11,11 +11,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @WebServlet(name = "RegistrationServlet", value = "/registration")
 public class RegistrationServlet extends HttpServlet {
     @Inject
     private RegistrationSessionService registrationSessionService;
+
+    @Inject
+    private Logger logger;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +51,8 @@ public class RegistrationServlet extends HttpServlet {
         Attendee attendee = new Attendee(request.getParameter("name"), request.getParameter("email"));
         attendees.add(attendee);
         registrationSessionService.addAttendee(eventId, attendee);
+
+        logger.info("attendee hinzugefügt: " + attendee);
 
         response.sendRedirect(request.getContextPath() + "?success=true");
     }
