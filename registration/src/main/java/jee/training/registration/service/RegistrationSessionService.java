@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
+import jee.training.registration.interceptor.Monitor;
 import jee.training.registration.model.Attendee;
 
 import java.io.Serializable;
@@ -36,6 +37,7 @@ public class RegistrationSessionService implements Serializable {
         return events;
     }
 
+    @Monitor
     public void addAttendee(String eventId, Attendee attendee) {
         if (!events.containsKey(eventId)) {
             events.put(eventId, new ArrayList<>());
