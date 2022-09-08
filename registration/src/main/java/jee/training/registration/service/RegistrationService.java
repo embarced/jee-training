@@ -3,8 +3,8 @@ package jee.training.registration.service;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
+import jee.training.registration.dao.AttendeeDao;
 import jee.training.registration.interceptor.Monitor;
 import jee.training.registration.model.Attendee;
 
@@ -18,10 +18,12 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 @ManagedBean
-public class RegistrationSessionService implements Serializable {
+public class RegistrationService implements Serializable {
     @Inject
     private Logger logger;
 
+    @Inject
+    private AttendeeDao attendeeDao;
 
     Map<String, List<Attendee>> events = new HashMap<>();
 
@@ -43,10 +45,7 @@ public class RegistrationSessionService implements Serializable {
             events.put(eventId, new ArrayList<>());
         }
         events.get(eventId).add(attendee);
-        logger.log(Level.INFO, "added attendee " + attendee);
-//        events.computeIfAbsent(eventId, a -> {
-//            ArrayList<Attendee> attendees = new ArrayList<>();
-//            attendees.add(a);
-//        });
+        Attendee saved = attendeeDao.save(attendee);
+        logger.log(Level.INFO, "added attendee " + attendee + " with id #" + saved.getId());
     }
 }

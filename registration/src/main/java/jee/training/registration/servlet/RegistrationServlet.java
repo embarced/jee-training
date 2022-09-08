@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jee.training.registration.model.Attendee;
-import jee.training.registration.service.RegistrationSessionService;
+import jee.training.registration.service.RegistrationService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "RegistrationServlet", value = "/registration")
 public class RegistrationServlet extends HttpServlet {
     @Inject
-    private RegistrationSessionService registrationSessionService;
+    private RegistrationService registrationService;
 
     @Inject
     private Logger logger;
@@ -50,7 +50,7 @@ public class RegistrationServlet extends HttpServlet {
         List<Attendee> attendees = (List<Attendee>) session.getAttribute(eventId);
         Attendee attendee = new Attendee(request.getParameter("name"), request.getParameter("email"));
         attendees.add(attendee);
-        registrationSessionService.addAttendee(eventId, attendee);
+        registrationService.addAttendee(eventId, attendee);
 
         logger.info("attendee hinzugefügt: " + attendee);
 

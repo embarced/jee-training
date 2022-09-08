@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jee.training.registration.model.Attendee;
-import jee.training.registration.service.RegistrationSessionService;
+import jee.training.registration.service.RegistrationService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,11 +14,11 @@ import java.util.Map;
 
 @WebServlet(name = "AdminServlet", value = "/admin")
 public class AdminServlet extends HttpServlet {
-    private final RegistrationSessionService registrationSessionService;
+    private final RegistrationService registrationService;
 
     @Inject
-    public AdminServlet(RegistrationSessionService registrationSessionService) {
-        this.registrationSessionService = registrationSessionService;
+    public AdminServlet(RegistrationService registrationService) {
+        this.registrationService = registrationService;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String eventId = request.getParameter("eventId");
         if (eventId == null) {
-            for(Map.Entry<String, List<Attendee>> entry : registrationSessionService.getEvents().entrySet()) {
+            for(Map.Entry<String, List<Attendee>> entry : registrationService.getEvents().entrySet()) {
                 out.println(String.format("<a href=\"admin?eventId=%s\">%s</a>", entry.getKey(), entry.getKey()));
             }
 //            Enumeration<String> attributeNames = session.getAttributeNames();
@@ -42,7 +42,7 @@ public class AdminServlet extends HttpServlet {
 //            }
         } else {
             // List<Attendee> attendees = (List<Attendee>) session.getAttribute(eventId);
-            List<Attendee> attendees = registrationSessionService.getEvents().get(eventId);
+            List<Attendee> attendees = registrationService.getEvents().get(eventId);
             out.println(String.format("Event #%s, Attendees: %s", eventId, attendees));
         }
         out.println("<br/><a href=\"" + request.getContextPath() + "\">Zur Startseite</a>");
