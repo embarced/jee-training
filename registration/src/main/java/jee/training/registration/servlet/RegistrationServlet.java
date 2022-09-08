@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jee.training.registration.dao.AttendeeDao;
 import jee.training.registration.model.Attendee;
 import jee.training.registration.service.RegistrationService;
 
@@ -19,15 +20,30 @@ public class RegistrationServlet extends HttpServlet {
     private RegistrationService registrationService;
 
     @Inject
+    private AttendeeDao attendeeDao;
+
+    @Inject
     private Logger logger;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String eventId = request.getParameter("eventId");
+        if("true".equals(request.getParameter("simulateCrud"))) {
+            Attendee attendee = new Attendee("Hans", "Hansen");
+            registrationService.addAttendee(eventId, attendee);
+
+            registrationService.simulateDirtyChecking(attendee.getId());
+            registrationService.simulateUpdateDetachedObject(attendee);
+            registrationService.simulateDelete(attendee);
+
+            response.sendRedirect(request.getContextPath());
+            return;
+        }
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("Registrierungsformular");
         HttpSession session = request.getSession();
-        String eventId = request.getParameter("eventId");
         Object obj = session.getAttribute(eventId);
         List<Attendee> attendees = new ArrayList<>();
         if (obj != null && obj instanceof List) {
@@ -53,6 +69,10 @@ public class RegistrationServlet extends HttpServlet {
         registrationService.addAttendee(eventId, attendee);
 
         logger.info("attendee hinzugefügt: " + attendee);
+
+        registrationService.simulateDirtyChecking(attendee.getId());
+        registrationService.simulateUpdateDetachedObject(attendee);
+        registrationService.simulateDelete(attendee);
 
         response.sendRedirect(request.getContextPath() + "?success=true");
     }

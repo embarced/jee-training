@@ -13,4 +13,20 @@ public class Resources {
         String name = injectionPoint.getMember().getDeclaringClass().getSimpleName();
         return Logger.getLogger(name);
     }
+
+//    @PersistenceUnit
+//    private EntityManagerFactory entityManagerFactory;
+//
+//    @Produces
+//    @Default
+//    @RequestScoped
+//    public EntityManager create() {
+//        return this.entityManagerFactory.createEntityManager();
+//    }
+//
+//    public void dispose(@Disposes @Default EntityManager entityManager) {
+//        if (entityManager.isOpen()) {
+//            entityManager.close();
+//        }
+//    }
 }

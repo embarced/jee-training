@@ -14,6 +14,8 @@
 <br/>
 ${param.success ? "Registrierung erfolgreich" : "" }
 <br/>
+<a href="registration?eventId=2022-09-22&simulateCrud=true">Simuliere CRUD-Varianten</a>
+<br/>
 <a href="admin">Admin-Seite</a>
 </body>
 </html>

@@ -6,11 +6,11 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jee.training.registration.model.Attendee;
 
+@Transactional(Transactional.TxType.MANDATORY)
 public class AttendeeDao {
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
     public Attendee save(Attendee attendee) {
         em.persist(attendee);
         return attendee;
@@ -20,14 +20,12 @@ public class AttendeeDao {
         return em.find(Attendee.class, id);
     }
 
-    @Transactional
     public Attendee update(Attendee attendee) {
         return em.merge(attendee);
     }
 
-    @Transactional
-    public Attendee delete(Long id) {
-        Attendee toDelete = this.get(id);
+    public Attendee delete(Attendee attendee) {
+        Attendee toDelete = this.get(attendee.getId());
         em.remove(toDelete);
         return toDelete;
     }
