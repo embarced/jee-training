@@ -42,4 +42,12 @@ public class Attendee {
                 .add("email='" + email + "'")
                 .toString();
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

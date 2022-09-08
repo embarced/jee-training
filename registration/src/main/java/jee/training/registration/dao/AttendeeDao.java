@@ -19,4 +19,9 @@ public class AttendeeDao {
     public Attendee get(Long id) {
         return em.find(Attendee.class, id);
     }
+
+    @Transactional
+    public Attendee update(Attendee attendee) {
+        return em.merge(attendee);
+    }
 }

@@ -4,6 +4,8 @@ import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jee.training.registration.dao.AttendeeDao;
 import jee.training.registration.interceptor.Monitor;
 import jee.training.registration.model.Attendee;
@@ -21,6 +23,9 @@ import java.util.logging.Logger;
 public class RegistrationService implements Serializable {
     @Inject
     private Logger logger;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Inject
     private AttendeeDao attendeeDao;
@@ -47,6 +52,17 @@ public class RegistrationService implements Serializable {
         events.get(eventId).add(attendee);
         Attendee saved = attendeeDao.save(attendee);
         System.out.println("Aus DB geladen: " + attendeeDao.get(saved.getId()));
+        simulateUpdates(saved.getId());
+        System.out.println("Aus DB geladen: " + attendeeDao.get(saved.getId()));
         logger.log(Level.INFO, "added attendee " + attendee + " with id #" + saved.getId());
+    }
+
+    // @Transactional(Transactional.TxType.REQUIRED)
+    public void simulateUpdates(Long id) {
+        Attendee attendee = attendeeDao.get(id);
+        attendee.setName("embarc");
+        attendee.setEmail("fs@embarc.de");
+        Attendee merged = attendeeDao.update(attendee);
+        System.out.println("breakpoint");
     }
 }
