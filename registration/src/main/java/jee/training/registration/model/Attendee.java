@@ -1,9 +1,6 @@
 package jee.training.registration.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.StringJoiner;
 
@@ -15,12 +12,21 @@ public class Attendee {
     private String name;
     private String email;
 
-    public Attendee() {
+    @ManyToOne
+    private Event event;
+
+    private Attendee() {
     }
 
     public Attendee(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public Attendee(String name, String email, Event event) {
+        this(name, email);
+        this.event = event;
+        //this.event.getAttendes().add(this);
     }
 
     public Long getId() {
@@ -49,5 +55,17 @@ public class Attendee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }

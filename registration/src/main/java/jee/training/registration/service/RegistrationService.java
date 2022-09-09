@@ -38,7 +38,7 @@ public class RegistrationService implements Serializable {
     @Monitor
     public void addAttendee(String eventId, Attendee attendee) {
         Event event = em.find(Event.class, eventId);
-        // event.addToAttendees(attendee);
+        event.addToAttendees(attendee);
         Attendee saved = attendeeDao.save(attendee);
         logger.log(Level.INFO, "added attendee " + attendee + " with id #" + saved.getId());
     }

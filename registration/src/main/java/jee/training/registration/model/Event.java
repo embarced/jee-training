@@ -1,12 +1,10 @@
 package jee.training.registration.model;
 
 import jakarta.json.bind.annotation.JsonbDateFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -17,7 +15,19 @@ public class Event {
     @JsonbDateFormat("dd.MM.yyyy")
     private Date date;
 
+    @ManyToOne
+    private Location location;
+
+    @OneToMany(mappedBy = "event")
+    private Set<Attendee> attendees;
+
     private Event() {
+    }
+
+    public Event(String id, Date date, Location location) {
+        this.id = id;
+        this.date = date;
+        this.location = location;
     }
 
     public String getId() {
@@ -26,5 +36,14 @@ public class Event {
 
     public Date getDate() {
         return date;
+    }
+
+    public void addToAttendees(Attendee attendee) {
+        this.attendees.add(attendee);
+        attendee.setEvent(this);
+    }
+
+    public Set<Attendee> getAttendes() {
+        return attendees;
     }
 }

@@ -1,9 +1,12 @@
 package jee.training.registration.servlet;
 
 import jakarta.inject.Inject;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jee.training.registration.dao.AttendeeDao;
 import jee.training.registration.model.Attendee;
 import jee.training.registration.service.RegistrationService;
@@ -61,11 +64,8 @@ public class RegistrationServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        HttpSession session = request.getSession();
         String eventId = request.getParameter("eventId");
-        List<Attendee> attendees = (List<Attendee>) session.getAttribute(eventId);
         Attendee attendee = new Attendee(request.getParameter("name"), request.getParameter("email"));
-        attendees.add(attendee);
         registrationService.addAttendee(eventId, attendee);
 
         logger.info("attendee hinzugefügt: " + attendee);

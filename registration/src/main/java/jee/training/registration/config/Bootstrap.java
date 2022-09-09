@@ -35,12 +35,19 @@ public class Bootstrap {
         Event e2 = new Event("2022-10-13", parseDate("2022-10-13"), online);
         Event e3 = new Event("2022-11-10", parseDate("2022-11-10"), online);
 
+        if (em.createQuery("select count(l) from Location l", Long.class).getSingleResult() == 0) {
+            List.of(darmstadt, frankfurt, online).forEach(l -> em.persist(l));
+        }
+
         if (em.createQuery("select count(e) from Event e", Long.class).getSingleResult() == 0) {
             List.of(e1, e2, e3).forEach(e -> em.persist(e));
         }
 
-        if (em.createQuery("select count(l) from Location l", Long.class).getSingleResult() == 0) {
-            List.of(darmstadt, frankfurt, online).forEach(l -> em.persist(l));
+        if (em.createQuery("select count(a) from Attendee a", Long.class).getSingleResult() == 0) {
+            List.of(new Attendee("hans", "hans", e1),
+                    new Attendee("otto", "otto", e1),
+                    new Attendee("marion", "marion", e2),
+                    new Attendee("frieda", "frieda", e3)).forEach(a -> em.persist(a));
         }
 
     }
