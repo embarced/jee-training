@@ -18,7 +18,7 @@ public class Event {
     @ManyToOne
     private Location location;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Attendee> attendees;
 
     private Event() {
@@ -45,5 +45,29 @@ public class Event {
 
     public Set<Attendee> getAttendes() {
         return attendees;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Set<Attendee> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Set<Attendee> attendees) {
+        this.attendees = attendees;
     }
 }
