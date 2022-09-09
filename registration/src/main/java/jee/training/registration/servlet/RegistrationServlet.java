@@ -70,10 +70,6 @@ public class RegistrationServlet extends HttpServlet {
 
         logger.info("attendee hinzugefügt: " + attendee);
 
-        registrationService.simulateDirtyChecking(attendee.getId());
-        registrationService.simulateUpdateDetachedObject(attendee);
-        registrationService.simulateDelete(attendee);
-
         response.sendRedirect(request.getContextPath() + "?success=true");
     }
 }
