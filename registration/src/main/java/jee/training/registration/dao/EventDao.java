@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jee.training.registration.model.Event;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class EventDao {
         Event toDelete = em.find(Event.class, id);
         em.remove(toDelete);
         return toDelete;
+    }
+
+    public List<Event> findByDateBefore(LocalDate date) {
+        em.createQuery("select e from Event where date < :date", Event.class).setParameter("date", date).getResultList();
+        return List.of();
     }
 }

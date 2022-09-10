@@ -1,10 +1,12 @@
 package jee.training.registration.model;
 
 import jakarta.json.bind.annotation.JsonbDateFormat;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 public class Event {
@@ -12,30 +14,31 @@ public class Event {
     private String id;
 
     @Temporal(TemporalType.DATE)
-    @JsonbDateFormat("dd.MM.yyyy")
+    @JsonbTransient
     private Date date;
 
     @ManyToOne
     private Location location;
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<Attendee> attendees;
+    private Set<Attendee> attendees = new HashSet<>();
 
-    private Event() {
+    public Event() {
     }
 
-    public Event(String id, Date date, Location location) {
+    public Event(String id, Location location) {
         this.id = id;
-        this.date = date;
+        this.date = parseDate(id);
         this.location = location;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Date getDate() {
-        return date;
+    private Date parseDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addToAttendees(Attendee attendee) {
@@ -43,12 +46,16 @@ public class Event {
         attendee.setEvent(this);
     }
 
-    public Set<Attendee> getAttendes() {
-        return attendees;
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public void setDate(Date date) {
@@ -69,5 +76,28 @@ public class Event {
 
     public void setAttendees(Set<Attendee> attendees) {
         this.attendees = attendees;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Event.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("date=" + date)
+                .add("location=" + location)
+                .add("attendees=" + attendees)
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id.equals(event.id) && location.equals(event.location) && attendees.equals(event.attendees);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location, attendees);
     }
 }
