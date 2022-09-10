@@ -36,7 +36,8 @@ public class EventResource {
 
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") String id) {
+    public Response delete(@PathParam("id") String id) {
         eventDao.delete(id);
+        return Response.noContent().build();
     }
 }

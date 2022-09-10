@@ -2,6 +2,7 @@ package jee.training.registration.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity
@@ -11,11 +12,10 @@ public class Attendee {
     private Long id;
     private String name;
     private String email;
-
     @ManyToOne
     private Event event;
 
-    private Attendee() {
+    public Attendee() {
     }
 
     public Attendee(String name, String email) {
@@ -33,12 +33,45 @@ public class Attendee {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Attendee attendee = (Attendee) o;
+        return Objects.equals(name, attendee.name) && Objects.equals(email, attendee.email) && Objects.equals(event, attendee.event);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, event);
     }
 
     @Override
@@ -49,23 +82,4 @@ public class Attendee {
                 .toString();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
 }

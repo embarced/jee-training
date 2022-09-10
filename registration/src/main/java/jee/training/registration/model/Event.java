@@ -21,6 +21,7 @@ public class Event {
     private Location location;
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonbTransient
     private Set<Attendee> attendees = new HashSet<>();
 
     public Event() {
@@ -93,11 +94,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return id.equals(event.id) && location.equals(event.location) && attendees.equals(event.attendees);
+        return id.equals(event.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, location, attendees);
+        return Objects.hash(id, location);
     }
 }
