@@ -39,7 +39,7 @@ public class EventDao {
     }
 
     public List<Event> findByDateBefore(LocalDate date) {
-        em.createQuery("select e from Event where date < :date", Event.class).setParameter("date", date).getResultList();
-        return List.of();
+        return em.createQuery("select e from Event e where e.date < :date", Event.class)
+                .setParameter("date", java.sql.Date.valueOf(date)).getResultList();
     }
 }
