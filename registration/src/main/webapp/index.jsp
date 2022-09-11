@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Jakarta EE Workshop</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Jakarta EE Workshop" %>
 </h1>
 <br/>
 <a href="hello-servlet?name=Falk">Hello Servlet</a>
 <br/>
-<a href="registration?eventId=2022-09-22">Registrierungsformular</a>
+<a href="registration">Registrierungsformular</a>
 <br/>
-${param.success ? "Registrierung erfolgreich" : "" }
+${param.success ? "<span style=\"color:green;\">Registrierung erfolgreich</span>" : "" }
 <br/>
 <a href="registration?eventId=2022-09-22&simulateCrud=true">Simuliere CRUD-Varianten</a>
 <br/>

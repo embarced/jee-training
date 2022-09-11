@@ -53,6 +53,7 @@ public class Event {
 
     public void setId(String id) {
         this.id = id;
+        this.date = parseDate(id);
     }
 
     public Date getDate() {
@@ -94,11 +95,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return id.equals(event.id);
+        return id.equals(event.id) && location.equals(event.location) && attendees.equals(event.attendees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, location);
+        return Objects.hash(id);
     }
 }
